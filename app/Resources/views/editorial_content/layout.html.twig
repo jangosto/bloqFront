@@ -1,0 +1,144 @@
+{% extends "base.html.twig" %}
+
+{#% import "macros/lists_macros.html.twig" as listsMacros %#}
+
+{% set primaryImage = content.multimedias | primary() %}
+{% set primaryImageSizeInfo = (multimedia_domain_path ~ relative_images_url ~ primaryImage.path | optimized('article_primary')) | sizeInfo() %}
+{% if content.pretitle is defined and content.pretitle | length > 0 %}
+    {% set pretitle = content.pretitle %}
+{% else %}
+    {% set pretitle = content.section.name %}
+{% endif %}
+{% if content.seoTitle is defined and content.seoTitle == true %}
+    {% set title = pretitle ~ " - " ~ content.title %}
+    {% set htmlTitle = '<h1 class="titulo tam38 titular" itemprop="name headline"><span class="antetitulo"><a href="">' ~ pretitle ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
+{% else %}
+    {% set title = content.title %}
+    {% set htmlTitle = '<span class="antetitulo"><a href="">' ~ pretitle ~ '</a></span><h1 class="titulo tam38 titular" itemprop="name headline">' ~ content.title ~ '</h1>' %}
+{% endif %}
+{% set months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'] %}
+
+{% block metas %}
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="title" content="{{ title }}">
+    <meta name="description" content="{{ content.intro }}">
+    <meta content="width=device-width" name="viewport">
+    <meta property="og:title" content="{{ content.title }}" />
+    <meta property="og:url" content="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+    <meta property="og:image" content="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" />
+    <meta property="og:image:width" content="{{ primaryImageSizeInfo.width }}" />
+    <meta property="og:image:height" content="{{ primaryImageSizeInfo.height }}" />
+    <meta property="og:description" content="{{ content.intro }}" />
+    <meta property="og:site_name" content="Latido a latido" />
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content="{{ content.publishedDT.format("Y-m-d") ~ 'T' ~ content.publishedDT.format("H:i:sP") }}" />
+    <meta property="og:article:modified_time" content="{{ content.updatedDT.format("Y-m-d") ~ 'T' ~ content.updatedDT.format("H:i:sP") }}" />
+    <meta property="og:article:author" content="Latido a latido" />
+    {% for category in content.categories %}
+    <meta property="og:article:section" content="{{ category.name }}" />
+    {% endfor %}
+    {% for tag in content.tags %}
+    <meta property="og:article:tag" content="{{ tag.name }}" />
+    {% endfor %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ twitter_account_name }}">
+    {% for author in content.authors %}
+    {% if author.twitterAccount is defined and author.twitterAccount | length > 0 %}
+    <meta name="twitter:creator" content="{{ author.twitterAccount }}" />
+    {% endif %}
+    {% endfor %}
+    <meta name="twitter:title" content="{{ content.title }}">
+    <meta name="twitter:description" content="{{ content.intro }}">
+    <meta name="twitter:image" content="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}">
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{{ statics_domain }}/css/estilos.css">
+{% endblock %}
+
+{% block javascript %}
+    <!--[if lt IE 9]>
+        <script src="{{ statics_domain }}/js/html5.js"></script>
+    <![endif]-->
+    <script src="{{ statics_domain }}/js/jquery-1.11.1.min.js"></script>
+{#    <script type="text/javascript" src="{{ statics_domain }}/js/nativeflashradiov3.js"></script> #}
+{% endblock %}
+
+{% block bodyAttributes %}class="{% block bodyClass %}{% endblock %}" id="{% block bodyId %}{% endblock %}"{% endblock %}
+
+{% block preBodyElements %}
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLBKQD" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLBKQD');
+    </script>
+    <div class="megabanner">
+        <a href="" class="creatividad"><img src="img/megabanner-alto.jpg" alt=""></a>
+    </div>
+    <div class="oreja izq"><a href="" class="creatividad"><img src="img/oreja-izq.jpg" alt=""></a></div>
+    <div class="oreja der"><a href="" class="creatividad"><img src="img/oreja-der.jpg" alt=""></a></div>
+{% endblock %}
+
+{% block preHeader %}
+    <div class="precabecera contenedor clear">
+        <a href="" class="titulo"><strong>fanatic</strong>.futbol</a>
+        <ul class="acceso">
+            <li><a href="{{ path('fos_user_registration_register') }}" class="boton cuadrado blanco"><span class="icono icon icon-account-add"></span><span class="accion">Regístrate</span></a></li>
+            <li><a href="{{ path('fos_user_security_login') }}" class="boton cuadrado blanco"><span class="icono icon icon-account-box"></span><span class="accion">Inicia sesión</span></a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block header %}
+    <header class="cabecera contenedor">
+        <span class="contenido clear">
+            <span class="logo"><a href="/"><img src="{{ statics_domain }}/img/logo-blanco.png" alt="latidoalatido.com"><em>latidoalatido<small>.com</small></em></a></span>
+            <span class="boton-navegacion"><span class="icon icon-menu"></span></span>
+            {% block nav %}
+            <nav class="navegacion">
+                <a href="" class="portada">Portada</a><a href="" class="jugadores">Jugadores</a>
+                <a href="" class="futbol activo"><h1>Fútbol</h1></a>
+                <a href="" class="tecnicos">Técnicos</a>
+                <a href="" class="wags">WAGS</a>
+                <a href="" class="competiciones">Competiciones</a>
+                <a href="" class="directiva">Directiva</a>
+                <a href="" class="historia">Historia</a>
+            </nav>
+            {% endblock %}
+        </span>
+    </header>
+{% endblock %}
+
+{% block content %}
+
+{# <div id="flashradio" style="height:50px; width:400px;">
+Native Flashradio V3
+</div>
+<a href="http://native.flashradio.info">READ MORE</a>
+<script type="text/javascript">
+    $("#flashradio").flashradio({settings: "{{ statics_domain }}/lib/flashradio.xml"});
+</script> #}
+
+{% endblock %}
+
+{% block footer %}
+<footer class="pie contenedor clear">
+    <nav class="col-12 pad enlaces">
+        <a href="">Portada</a>
+        <a href="">Jugadores</a>
+        <a href="">Técnicos</a>
+        <a href="">WAGS</a>
+        <a href="">Competiciones</a>
+        <a href="">Directiva</a>
+        <a href="">Historia</a>
+    </nav>
+    <p class="col-12 pad">Todos los derechos reservados<strong>© latidoalatido.com</strong>es una marca de fanatic.futbol</p>
+</footer>
+{% endblock %}
+
+{% block bodyJs %}
+<script src="{{ statics_domain }}/js/cocktail.js"></script>
+<script src="{{ statics_domain }}/js/scripts.js"></script>
+{% endblock %}

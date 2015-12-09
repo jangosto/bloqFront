@@ -1,0 +1,34 @@
+bloq_entities:
+    entities:
+        user:
+            model_class: &userModelClass Bloq\Common\EntitiesBundle\Entity\User
+
+bloq_editor:
+    editorial_contents:
+        article:
+            model_class: &articleModelClass Bloq\Common\EditorBundle\Entity\Article
+            manager_class: Bloq\Common\EditorBundle\Manager\ArticleManager
+            form_type_class: Bloq\Common\EditorBundle\Form\Type\ArticleFormType
+            form_type_name: editor_article_edition
+#        gallery:
+#            model_class: ~
+#            manager_class: ~
+#            form_type_class: ~
+#            form_type_name: ~
+
+bloq_multimedia:
+    domain_path: %multimedia.domain.path%
+    upload_dir: %multimedia.upload.dir.rel.path%
+    cache_dir_prefix: %multimedia.cache_dir.prefix%
+    images:
+        root_dir_rel_path: &imagesRootDir %multimedia.upload.dir.rel.path%/images
+        root_dir_rel_path_originals: &imagesRootDirOriginals %multimedia.upload.dir.rel.path%/originals/images
+        root_dir_rel_url: %multimedia.images.dir.rel_url%
+
+parameters:
+    bloq_entities.user.class: *userModelClass
+
+    bloq_editor.editorial_content.article.model_class: *articleModelClass
+
+    bloq_multimedia.images.root_dir_rel_path: *imagesRootDir
+    bloq_multimedia.images.root_dir_rel_path_originals: *imagesRootDirOriginals 

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ES" prefix="og: http://ogp.me/ns#">
+    <head>
+        {% block metas %}{% endblock %}
+        {% block stylesheet %}{% endblock %}
+        {% block javascript %}{% endblock %}
+    </head>
+    <body {% block bodyAttributes %}{% endblock %}>
+        {% block preBodyElements %}{% endblock %}
+        {% block preHeader %}{% endblock %}
+        {% block header %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block footer %}{% endblock %}
+        {% block bodyJs %}{% endblock %}
+    </body>
+</html>
