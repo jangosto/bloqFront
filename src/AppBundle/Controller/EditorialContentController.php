@@ -49,9 +49,13 @@ class EditorialContentController extends Controller
             return $this->redirect($this->container->get('request')->getBaseUrl().$canonicalUrl->getUrl(), 301);
         }
 
-        $interestingContents = $editorialContentManager->getBySameTags($editorialContent, false, 3);
-        foreach ($interestingContents as $interestingContent) {
-            $interestingContent->setUrls($urlManager->getByContentId($interestingContent->getId()));
+        if (count($editorialContent->getTags()) > 0) {
+            $interestingContents = $editorialContentManager->getBySameTags($editorialContent, false, 3);
+            foreach ($interestingContents as $interestingContent) {
+                $interestingContent->setUrls($urlManager->getByContentId($interestingContent->getId()));
+            }
+        } else {
+            $interestingContent = array();
         }
 
         $userManager = $this->container->get('fos_user.user_manager');
