@@ -55,7 +55,7 @@ class EditorialContentController extends Controller
                 $interestingContent->setUrls($urlManager->getByContentId($interestingContent->getId()));
             }
         } else {
-            $interestingContent = array();
+            $interestingContents = array();
         }
 
         $userManager = $this->container->get('fos_user.user_manager');
