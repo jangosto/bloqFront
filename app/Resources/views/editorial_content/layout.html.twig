@@ -3,7 +3,9 @@
 {#% import "macros/lists_macros.html.twig" as listsMacros %#}
 
 {% set primaryImage = content.multimedias | primary() %}
-{% set primaryImageSizeInfo = (multimedia_domain_path ~ relative_images_url ~ primaryImage.path | optimized('article_primary')) | sizeInfo() %}
+{% if primaryImage != null %}
+    {% set primaryImageSizeInfo = (multimedia_domain_path ~ relative_images_url ~ primaryImage.path | optimized('article_primary')) | sizeInfo() %}
+{% endif %}
 {% if content.pretitle is defined and content.pretitle | length > 0 %}
     {% set pretitle = content.pretitle %}
 {% else %}
@@ -26,9 +28,11 @@
     <meta content="width=device-width" name="viewport">
     <meta property="og:title" content="{{ content.title }}" />
     <meta property="og:url" content="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+    {% if primaryImage != null %}
     <meta property="og:image" content="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" />
     <meta property="og:image:width" content="{{ primaryImageSizeInfo.width }}" />
     <meta property="og:image:height" content="{{ primaryImageSizeInfo.height }}" />
+    {% endif %}
     <meta property="og:description" content="{{ content.intro }}" />
     <meta property="og:site_name" content="Latido a latido" />
     <meta property="og:type" content="article" />
@@ -50,7 +54,9 @@
     {% endfor %}
     <meta name="twitter:title" content="{{ content.title }}">
     <meta name="twitter:description" content="{{ content.intro }}">
+    {% if primaryImage != null %}
     <meta name="twitter:image" content="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}">
+    {% endif %}
 {% endblock %}
 
 {% block stylesheet %}
@@ -81,36 +87,6 @@
     <div class="oreja der"><a href="" class="creatividad"><img src="img/oreja-der.jpg" alt=""></a></div>
 {% endblock %}
 
-{% block preHeader %}
-    <div class="precabecera contenedor clear">
-        <a href="" class="titulo"><strong>fanatic</strong>.futbol</a>
-        <ul class="acceso">
-            <li><a href="{{ path('fos_user_registration_register') }}" class="boton cuadrado blanco"><span class="icono icon icon-account-add"></span><span class="accion">Regístrate</span></a></li>
-            <li><a href="{{ path('fos_user_security_login') }}" class="boton cuadrado blanco"><span class="icono icon icon-account-box"></span><span class="accion">Inicia sesión</span></a></li>
-        </ul>
-    </div>
-{% endblock %}
-
-{% block header %}
-    <header class="cabecera contenedor">
-        <span class="contenido clear">
-            <span class="logo"><a href="/"><img src="{{ statics_domain }}/img/logo-blanco.png" alt="latidoalatido.com"><em>latidoalatido<small>.com</small></em></a></span>
-            <span class="boton-navegacion"><span class="icon icon-menu"></span></span>
-            {% block nav %}
-            <nav class="navegacion">
-                <a href="" class="portada">Portada</a><a href="" class="jugadores">Jugadores</a>
-                <a href="" class="futbol activo"><h1>Fútbol</h1></a>
-                <a href="" class="tecnicos">Técnicos</a>
-                <a href="" class="wags">WAGS</a>
-                <a href="" class="competiciones">Competiciones</a>
-                <a href="" class="directiva">Directiva</a>
-                <a href="" class="historia">Historia</a>
-            </nav>
-            {% endblock %}
-        </span>
-    </header>
-{% endblock %}
-
 {% block content %}
 
 {# <div id="flashradio" style="height:50px; width:400px;">
@@ -121,24 +97,4 @@ Native Flashradio V3
     $("#flashradio").flashradio({settings: "{{ statics_domain }}/lib/flashradio.xml"});
 </script> #}
 
-{% endblock %}
-
-{% block footer %}
-<footer class="pie contenedor clear">
-    <nav class="col-12 pad enlaces">
-        <a href="">Portada</a>
-        <a href="">Jugadores</a>
-        <a href="">Técnicos</a>
-        <a href="">WAGS</a>
-        <a href="">Competiciones</a>
-        <a href="">Directiva</a>
-        <a href="">Historia</a>
-    </nav>
-    <p class="col-12 pad">Todos los derechos reservados<strong>© latidoalatido.com</strong>es una marca de fanatic.futbol</p>
-</footer>
-{% endblock %}
-
-{% block bodyJs %}
-<script src="{{ statics_domain }}/js/cocktail.js"></script>
-<script src="{{ statics_domain }}/js/scripts.js"></script>
 {% endblock %}

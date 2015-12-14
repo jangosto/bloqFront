@@ -11,6 +11,7 @@ parameters:
 
     app.front.twig_extension.multimedia.class: 'AppBundle\Twig\AppMultimediaExtension'
     app.front.twig_extension.text_content.class: 'AppBundle\Twig\AppTextContentExtension'
+    app.front.twig_extension.editorial_content.class: 'AppBundle\Twig\AppEditorialContentExtension'
 #    parameter_name: value
 
 services:
@@ -30,6 +31,11 @@ services:
 
     app.front.twig_extension.text_content:
         class: %app.front.twig_extension.text_content.class%
+        tags:
+            - { name: twig.extension }
+
+    app.front.twig_extension.editorial_content:
+        class: %app.front.twig_extension.editorial_content.class%
         tags:
             - { name: twig.extension }
 

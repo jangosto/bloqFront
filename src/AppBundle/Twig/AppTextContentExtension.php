@@ -27,7 +27,7 @@ class AppTextContentExtension extends \Twig_Extension
                 $html .= '<div class="robapaginas en-texto"><span class="creatividad"><img src="img/robapaginas.jpg"></span></div>';
             }
 
-            if (isset($elements[$elementsCounter]) && ((($key)%$interval == 0 && $key != 0) || $key == self::first_elements_text_position)) {
+            if ($interval !== null && isset($elements[$elementsCounter]) && ((($key)%$interval == 0 && $key != 0) || $key == self::first_elements_text_position)) {
                 $html .= '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($elements[$elementsCounter]->getImageWebPath(), 'article_intext').'" alt="'.$elements[$elementsCounter]->getAlt().'" itemprop="url">';
                 if (($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) || ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0)) {
                     $html .= '<figcaption itemprop="name">';
@@ -78,7 +78,11 @@ class AppTextContentExtension extends \Twig_Extension
             }
         }
 
-        $interval = (int) floor(count($textArray)/$totalElements);
+        if ($totalElements > 0) {
+            $interval = (int) floor(count($textArray)/$totalElements);
+        } else {
+            $interval = null;
+        }
 
         return $interval;
     }
