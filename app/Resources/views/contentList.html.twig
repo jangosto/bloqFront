@@ -1,0 +1,14 @@
+<html>
+    <head>
+    </head>
+    <body>
+        {% for key, contentsOfType in contents %}
+        <h1>{{ key }}</h1>
+        <ul>
+            {% for content in contentsOfType %}
+            <li><a href="{{ content.url }}">{{ content.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </body>
+</html>
