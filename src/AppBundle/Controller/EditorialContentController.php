@@ -29,10 +29,12 @@ class EditorialContentController extends Controller
             if ($url->getCanonical() === true) {
                 $editorialContentManager = $this->container->get('editor.'.$url->getContentType().'.manager');
                 $editorialContent = $editorialContentManager->getById($url->getContentId(), true);
-                $element['url'] = $url->getUrl();
-                $element['type'] = $editorialContent->getType();
-                $element['title'] = $editorialContent->getTitle();
-                $contents[$editorialContent->getType()][] = $element;
+                if ($editorialContent->getStatus() == 'published') {
+                    $element['url'] = $url->getUrl();
+                    $element['type'] = $editorialContent->getType();
+                    $element['title'] = $editorialContent->getTitle();
+                    $contents[$editorialContent->getType()][] = $element;
+                }
             }
         }
 
@@ -62,7 +64,7 @@ class EditorialContentController extends Controller
         $editorialContentManager = $this->container->get('editor.'.$url->getContentType().'.manager');
         $editorialContent = $editorialContentManager->getById($url->getContentId(), true);
 
-        if ($editorialContent->getEnabled !== true) {
+        if ($editorialContent->getStatus() !== "published") {
             throw $this->createNotFoundException('Content Not Found');
         }
 
