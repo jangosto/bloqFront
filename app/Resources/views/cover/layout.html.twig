@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width">
 {% endblock %}
 
+{% block bodyAttributes %}name="{% block bodyName %}top{% endblock %}" id="{% block bodyId %}portada{% endblock %}"{% endblock %}
+
 {% block content %}
 <main class="contenedor clear">
     <span class="col-9 clear bloque-ppal">
