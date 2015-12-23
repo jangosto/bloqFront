@@ -3,11 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ES" prefix="og: http://ogp.me/ns#">
     <head>
         {% block metas %}{% endblock %}
-        {% block stylesheet %}{% endblock %}
-        {% block javascript %}{% endblock %}
+        {% block stylesheet %}
+        <link rel="stylesheet" type="text/css" href="{{ statics_domain }}/css/estilos.css">
+        {% endblock %}
+        {% block javascript %}
+        <!--[if lt IE 9]>
+            <script src="{{ statics_domain }}/js/html5.js"></script>
+        <![endif]-->
+        <script src="{{ statics_domain }}/js/jquery-1.11.1.min.js"></script>
+        {% endblock %}
     </head>
     <body {% block bodyAttributes %}{% endblock %}>
-        {% block preBodyElements %}{% endblock %}
+        {% block preBodyElements %}
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLBKQD" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLBKQD');
+        </script>
+        <div class="megabanner">
+            <a href="" class="creatividad"><img src="img/megabanner-alto.jpg" alt=""></a>
+        </div>
+        <div class="oreja izq"><a href="" class="creatividad"><img src="img/oreja-izq.jpg" alt=""></a></div>
+        <div class="oreja der"><a href="" class="creatividad"><img src="img/oreja-der.jpg" alt=""></a></div>
+        {% endblock %}
         {% block preHeader %}
         <div class="precabecera contenedor clear">
             <a href="" class="titulo"><strong>fanatic</strong>.futbol</a>

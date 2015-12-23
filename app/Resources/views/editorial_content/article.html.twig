@@ -39,14 +39,26 @@
             </li>
         </ul>
         {% if primaryImage is defined and primaryImage != null and primaryImage.path | length > 0 %}
-            <figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
-                <img src="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" alt="{{ primaryImage.alt }}" itemprop="url">
-                {% if (primaryImage.title != null and primaryImage.title | length > 0) or (primaryImage.author != null and primaryImage.author | length > 0) %}
-                <figcaption itemprop="name">{% if primaryImage.title != null and primaryImage.title | length > 0 %}{{ primaryImage.title }} {% endif %}{% if primaryImage.author != null and primaryImage.author | length > 0 %}<span class="firma">- Foto: <span itemprop="author">{{ primaryImage.author }}</span></span>{% endif %}</figcaption>
-                {% endif %}
-            </figure>
+        <figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" alt="{{ primaryImage.alt }}" itemprop="url">
+            {% if (primaryImage.title != null and primaryImage.title | length > 0) or (primaryImage.author != null and primaryImage.author | length > 0) %}
+            <figcaption itemprop="name">{% if primaryImage.title != null and primaryImage.title | length > 0 %}{{ primaryImage.title }} {% endif %}{% if primaryImage.author != null and primaryImage.author | length > 0 %}<span class="firma">- Foto: <span itemprop="author">{{ primaryImage.author }}</span></span>{% endif %}</figcaption>
+            {% endif %}
+        </figure>
         {% endif %}
         <div class="cuerpo-articulo" itemprop="articleBody">
+
+{#<!-- PLAYER RADIO -->
+<div id="flashradio" style="height:50px; width:400px;">
+Native Flashradio V3
+</div>
+<a href="http://native.flashradio.info">READ MORE</a>
+<script type="text/javascript">
+    $("#flashradio").flashradio({settings: "{{ statics_domain }}/lib/flashradio.xml"});
+</script>
+<!-- END PLAYER RADIO -->#}
+
+
             {% if content.text | length > 0 %}
             {{ content | formatedTextContent() | raw }}
             {% endif %}
@@ -62,14 +74,7 @@
                 </ul>
             </aside>
         </div>
-        <aside class="mas-noticias">
-            <h1>Te puede interesar</h1>
-            <ul>
-                {% for interestingContent in interestingContents %}
-                <li><a href="{{ app.request.getBaseURL() }}{{ interestingContent | canonicalUrl }}">{{ interestingContent.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </aside>
+        {{ render(controller('BloqModulesBundle:EditorialContent:canInterestYou', {'title': 'Te puede interesar', 'limit': 4, 'content': content, 'excludedContents': counters.usedContents })) }}
         <div class="robapaginas">
             <span id="primer_roba_lateral" class="ayuda is_stuck" style="height: 250px; position: absolute; top: auto; width: 300px; bottom: 0px;">
                 <span class="creatividad">
@@ -93,12 +98,12 @@
                 */
                 var disqus_config = function () {
                     this.page.url = "{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}";  // Replace PAGE_URL with your page's canonical URL variable
-                    this.page.identifier = "latidoalatido_EC{{ content.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    this.page.identifier = "{{ disqus_editorial_content_id_prefix }}{{ content.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                 };
                 (function() {  // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');
         
-                    s.src = '//latidoalatidotest.disqus.com/embed.js';
+                    s.src = '//{{ disqus_src_domain_prefix }}.disqus.com/embed.js';
  
                     s.setAttribute('data-timestamp', +new Date());
                     (d.head || d.body).appendChild(s);
@@ -115,11 +120,5 @@
         {# END PAN #}
     </div>
 </main>
-<section class="clear mas-contenido">
-    <h1 class="titulo-seccion">En portada</h1>
-    {% for article in coverContents %}
-    <article>
-    </article>
-    {% endfor %}
-</section>
+{{ render(controller('BloqModulesBundle:EditorialContent:inCoverListTwoCol', {'title': 'En portada', 'limit': 2, 'excludedContents': counters.usedContents })) }}
 {% endblock %}

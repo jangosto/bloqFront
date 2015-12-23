@@ -1,0 +1,23 @@
+{% extends "cover/layout.html.twig" %}
+
+{% block zone_A1 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:outstandingsCarousel', { 'limit': 3, 'excludedContents': counters.usedContents })) }}
+{% endblock %}
+
+{% block zone_A2 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{% endblock %}
+
+{% block zone_A3 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
+{% set nexted = counters.outstandingSections.next() %}
+{% endblock %}
+
+{% block zone_A4 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{% endblock %}
+
+{% block zone_A5 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
+{% set nexted = counters.outstandingSections.next() %}
+{% endblock %}

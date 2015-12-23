@@ -55,6 +55,8 @@ twig:
         multimedia_domain: %multimedia.domain%
         multimedia_domain_path: %multimedia.domain.path%
         twitter_account_name: %social.twitter.account.name%
+        disqus_src_domain_prefix: %comments.disqus.src_domain_prefix%
+        disqus_editorial_content_id_prefix: %comments.disqus.editorial_content.id_prefix%
 
 # Assetic Configuration
 assetic:
@@ -203,8 +205,12 @@ liip_imagine:
         article_primary:
             quality: 75
             filters:
-                relative_resize: { widen: 940 }
+                relative_resize: { widen: 640 }
         article_intext:
             quality: 75
             filters:
-                relative_resize: { widen: 660 }
+                relative_resize: { widen: 640 }
+        home_carousel_outstandings:
+            quality: 75
+            filters:
+                relative_resize: { widen: 840 }

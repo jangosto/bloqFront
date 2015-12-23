@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block metas %}
+<meta charset="utf-8">
+<title>latidoalatido.com</title>
+<meta name="title" content="latidoalatido.com">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+{% endblock %}
+
+{% block content %}
+<main class="contenedor clear">
+    <span class="col-9 clear bloque-ppal">
+    {% block zone_A1 %}{% endblock %}
+    {% block zone_A2 %}{% endblock %}
+    {% block zone_A3 %}{% endblock %}
+    {% block zone_A4 %}{% endblock %}
+    {% block zone_A5 %}{% endblock %}
+    </span>
+    <section class="col-3 pad clear bloque-oficial">
+    {% block zone_B1 %}{% endblock %}
+    {% block zone_B2 %}{% endblock %}
+    {% block zone_B3 %}{% endblock %}
+    </section>
+</main>
+{% endblock %}

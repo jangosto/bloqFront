@@ -44,6 +44,23 @@ class EditorialContentController extends Controller
         ));
     }
 
+    /**
+     * @Route("/index.html", name="front_home")
+     */
+    public function homeAction()
+    {
+        $categoryManager = $this->container->get('editor.category.manager');
+
+        $outstandingCategories = $categoryManager->getOutstandings();
+
+        $counters = new \Bloq\Common\ModulesBundle\Monitors\Counters($outstandingCategories);
+        $counters->getOutstandingSections()->first();
+
+        return $this->render('cover/home.html.twig', array(
+            'user' => $this->getUser(),
+            'counters' => $counters
+        ));
+    }
 
     /**
      * @Route("/{section}/{title}-{date}.html", name="front_editorial_content_show_section", requirements={"title" = ".+", "date" = "[1-3][0-9][0-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9][0-5][0-9][0-5][0-9]"})
@@ -82,24 +99,17 @@ class EditorialContentController extends Controller
             return $this->redirect($this->container->get('request')->getBaseUrl().$canonicalUrl->getUrl(), 301);
         }
 
-        if (count($editorialContent->getTags()) > 0) {
-            $interestingContents = $editorialContentManager->getBySameTags($editorialContent, false, 3);
-            foreach ($interestingContents as $interestingContent) {
-                $interestingContent->setUrls($urlManager->getByContentId($interestingContent->getId()));
-            }
-        } else {
-            $interestingContents = array();
-        }
-
         $userManager = $this->container->get('fos_user.user_manager');
         $authors = $userManager->getByIds($editorialContent->getAuthors());
+
+        $counters = new \Bloq\Common\ModulesBundle\Monitors\Counters();
+        $counters->getUsedContents()->add($editorialContent->getId());
         
         return $this->render('editorial_content/'.$editorialContent->getType().'.html.twig', array(
             'user' => $this->getUser(),
             'authors' => $authors,
             'content' => $editorialContent,
-            'interestingContents' => $interestingContents,
-            'coverContents' => array()
+            'counters' => $counters
         ));
     }
 }
