@@ -17,35 +17,7 @@ use AppBundle\Form\Type\UserCreationFormType as AdminUserCreationFormType;
 class EditorialContentController extends Controller
 {
     /**
-     * @Route("/", name="test_list_editorial_contents")
-     */
-    public function publishedContentsListAction()
-    {
-        $urlManager = $this->container->get('editor.url.manager');
-        $urls = $urlManager->getAllEnabled();
-
-        $contents = array();
-        foreach ($urls as $url) {
-            if ($url->getCanonical() === true) {
-                $editorialContentManager = $this->container->get('editor.'.$url->getContentType().'.manager');
-                $editorialContent = $editorialContentManager->getById($url->getContentId(), true);
-                if ($editorialContent->getStatus() == 'published') {
-                    $element['url'] = $url->getUrl();
-                    $element['type'] = $editorialContent->getType();
-                    $element['title'] = $editorialContent->getTitle();
-                    $contents[$editorialContent->getType()][] = $element;
-                }
-            }
-        }
-
-        return $this->render('contentList.html.twig', array(
-            'user' => $this->getUser(),
-            'contents' => $contents
-        ));
-    }
-
-    /**
-     * @Route("/index.html", name="front_home")
+     * @Route("/", name="front_home")
      */
     public function homeAction()
     {
