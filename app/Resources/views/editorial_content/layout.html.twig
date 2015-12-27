@@ -6,17 +6,21 @@
 {% if primaryImage != null %}
     {% set primaryImageSizeInfo = (multimedia_domain_path ~ relative_images_url ~ primaryImage.path | optimized('article_primary')) | sizeInfo() %}
 {% endif %}
-{% if content.pretitle is defined and content.pretitle | length > 0 %}
-    {% set pretitle = content.pretitle %}
-{% else %}
-    {% set pretitle = content.section.name %}
-{% endif %}
 {% if content.seoTitle is defined and content.seoTitle == true %}
-    {% set title = pretitle ~ " - " ~ content.title %}
-    {% set htmlTitle = '<h1 class="titulo tam38 titular" itemprop="name headline"><span class="antetitulo"><a href="">' ~ pretitle ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
+    {% if content.pretitle is defined and content.pretitle | length > 0 %}
+        {% set title = content.pretitle ~ " - " ~ content.title %}
+        {% set htmlTitle = '<span class="seccion"><a href="">' ~ content.section.name ~ '</a></span><h1 class="titulo tam38 titular" itemprop="name headline"><span class="antetitulo"><a href="">' ~ content.pretitle ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
+    {% else %}
+        {% set title = content.section.name ~ " - " ~ content.title %}
+        {% set htmlTitle = '<h1 class="titulo tam38 titular" itemprop="name headline"><span class="seccion"><a href="">' ~ content.section.name ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
+    {% endif %}
 {% else %}
     {% set title = content.title %}
-    {% set htmlTitle = '<span class="antetitulo"><a href="">' ~ pretitle ~ '</a></span><h1 class="titulo tam38 titular" itemprop="name headline">' ~ content.title ~ '</h1>' %}
+    {% set htmlTitle = '<span class="seccion"><a href="">' ~ content.section.name ~ '</a></span>' %}
+    {% if content.pretitle is defined and content.pretitle | length > 0 %}
+        {% set htmlTitle = htmlTitle ~ '<span class="antetitulo"><a href="">' ~ content.pretitle ~ '</a></span>' %}
+    {% endif %}
+    {% set htmlTitle = htmlTitle ~ '<h1 class="titulo tam38 titular" itemprop="name headline">' ~ content.title ~ '</h1>' %}
 {% endif %}
 {% set months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'] %}
 
