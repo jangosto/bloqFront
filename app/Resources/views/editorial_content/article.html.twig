@@ -66,10 +66,10 @@ Native Flashradio V3
                 <h1>Guardado en</h1>
                 <ul>
                     {% for category in content.categories %}
-                    <li><a href="">{% if category.id == content.section.id %}<strong itemprop="articleSection">{{ category.name }}</strong>{% else %}<span itemprop="articleSection">{{ category.name }}</span>{% endif %}</a></li>
+                    <li><a href="{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl ~ category.url }}">{% if category.id == content.section.id %}<strong itemprop="articleSection">{{ category.name }}</strong>{% else %}<span itemprop="articleSection">{{ category.name }}</span>{% endif %}</a></li>
                     {% endfor %}
                     {% for tag in content.tags %}
-                    <li><a href=""><span itemprop="articleTag">{{ tag.name }}</span></a></li>
+                    <li><a href="{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl ~ tag.url }}"><span itemprop="articleTag">{{ tag.name }}</span></a></li>
                     {% endfor %}
                 </ul>
             </aside>

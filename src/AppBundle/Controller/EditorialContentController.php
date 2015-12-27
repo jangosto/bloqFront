@@ -98,18 +98,44 @@ class EditorialContentController extends Controller
 
         $slug = "";
         if ($subsubsection != null && strlen($subsubsection) > 0) {
-            $slug = $subsubsection;
+            $slug[0] = $subsubsection;
+            $slug[1] = $subsection;
+            $slug[2] = $section;
         } elseif ($subsection != null && strlen($subsection) > 0) {
-            $slug = $subsection;
+            $slug[0] = $subsection;
+            $slug[1] = $section;
         } elseif ($section != null && strlen($section) > 0) {
-            $slug = $section;
+            $slug[0] = $section;
         }
 
-        $section = $categoryManager->getBySlug($slug);
+        $section = $categoryManager->getBySlug($slug[0]);
+        $i = 0;
+        $tempSection = $section;
+        while ($tempSection != null && $categoryManager->getById($tempSection->getId())->getSlug() == $slug[$i]) {
+            $tempSection = $categoryManager->getById($tempSection->getParentId());
+            $i++;
+        }
+        if ($i < count($slug)) {
+            $tagManager = $this->container->get('editor.tag.manager');
+            $section = $tagManager->getBySlug($slug[0]);
+            $i = 0;
+            $tempSection = $section;
+            while ($tempSection != null && $tagManager->getById($tempSection->getId())->getSlug() == $slug[$i]) {
+                $tempSection = $tagManager->getById($tempSection->getParentId());
+                $i++;
+            }
+            if ($i < count($slug)) {
+                throw $this->createNotFoundException('Content Not Found');
+            } else {
+                $templatePrefix = "tag_";
+            }
+        } else {
+            $templatePrefix = "category_";
+        }
 
         $counters = new \Bloq\Common\ModulesBundle\Monitors\Counters($outstandingCategories);
 
-        return $this->render('cover/cover.html.twig', array(
+        return $this->render('cover/'.$templatePrefix.'cover.html.twig', array(
             'user' => $this->getUser(),
             'counters' => $counters,
             'section' => $section
