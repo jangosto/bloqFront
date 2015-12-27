@@ -1,0 +1,24 @@
+{% extends "cover/layout.html.twig" %}
+
+{% block bodyAttributes %}class="sub-portada" id="{{ section.slug }}"{% endblock %}
+
+{% block title %}<h1 class="titulo-seccion">{{ section.name }}</h1>{% endblock %}
+
+{% block zone_A1 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:outstandingForCategory', { 'category': section, 'excludedContents': counters.usedContents })) }}
+{% endblock %}
+
+{% block zone_A2 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedByCategoryListTwoCol', {'limit': 12, 'excludedContents': counters.usedContents, 'category': section })) }}
+{% endblock %}
+
+{% block zone_A3 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionFullPhotoListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
+{% set nexted = counters.outstandingSections.next() %}
+{% endblock %}
+
+{% block zone_B_class %}bloque-en-portada{% endblock %}
+
+{% block zone_B1 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:inCoverZoneBListOneCol', {'title': 'Y en portada...', 'limit': 5, 'excludedContents': counters.usedContents })) }}
+{% endblock %}

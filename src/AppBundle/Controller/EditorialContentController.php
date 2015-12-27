@@ -19,7 +19,7 @@ class EditorialContentController extends Controller
     /**
      * @Route("/", name="test_list_editorial_contents")
      */
-    public function publishedContentsList()
+    public function publishedContentsListAction()
     {
         $urlManager = $this->container->get('editor.url.manager');
         $urls = $urlManager->getAllEnabled();
@@ -67,7 +67,7 @@ class EditorialContentController extends Controller
      * @Route("/{section}/{subsection}/{title}-{date}.html", name="front_editorial_content_show_subsection", requirements={"title" = ".+", "date" = "[1-3][0-9][0-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9][0-5][0-9][0-5][0-9]"})
      * @Route("/{section}/{subsection}/{subsubsection}/{title}-{date}.html", name="front_editorial_content_show_subsubsection", requirements={"title" = ".+", "date" = "[1-3][0-9][0-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9][0-5][0-9][0-5][0-9]"})
      */
-    public function editorialContentShow(Request $request, $section, $subsection = null, $subsubsection = null, $title, $date)
+    public function editorialContentShowAction(Request $request, $section, $subsection = null, $subsubsection = null, $title, $date)
     {
         $currentPath = $this->container->get('request')->getPathInfo();
         $urlManager = $this->container->get('editor.url.manager');
@@ -110,6 +110,37 @@ class EditorialContentController extends Controller
             'authors' => $authors,
             'content' => $editorialContent,
             'counters' => $counters
+        ));
+    }
+
+    /**
+     * @Route("/{section}/", name="front_cover_by_section")
+     * @Route("/{section}/{subsection}/", name="front_cover_by_subsection")
+     * @Route("/{section}/{subsection}/{subsubsection}/", name="front_cover_by_subsubsection")
+     */
+    public function coverAction($section, $subsection = null, $subsubsection = null)
+    {
+        $categoryManager = $this->container->get('editor.category.manager');
+
+        $outstandingCategories = $categoryManager->getOutstandings();
+
+        $slug = "";
+        if ($subsubsection != null && strlen($subsubsection) > 0) {
+            $slug = $subsubsection;
+        } elseif ($subsection != null && strlen($subsection) > 0) {
+            $slug = $subsection;
+        } elseif ($section != null && strlen($section) > 0) {
+            $slug = $section;
+        }
+
+        $section = $categoryManager->getBySlug($slug);
+
+        $counters = new \Bloq\Common\ModulesBundle\Monitors\Counters($outstandingCategories);
+
+        return $this->render('cover/cover.html.twig', array(
+            'user' => $this->getUser(),
+            'counters' => $counters,
+            'section' => $section
         ));
     }
 }

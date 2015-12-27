@@ -13,13 +13,14 @@
 {% block content %}
 <main class="contenedor clear">
     <span class="col-9 clear bloque-ppal">
+    {% block title %}{% endblock %}
     {% block zone_A1 %}{% endblock %}
     {% block zone_A2 %}{% endblock %}
     {% block zone_A3 %}{% endblock %}
     {% block zone_A4 %}{% endblock %}
     {% block zone_A5 %}{% endblock %}
     </span>
-    <section class="col-3 pad clear bloque-oficial">
+    <section class="col-3 pad clear {% block zone_B_class %}bloque-oficial{% endblock %}">
     {% block zone_B1 %}{% endblock %}
     {% block zone_B2 %}{% endblock %}
     {% block zone_B3 %}{% endblock %}

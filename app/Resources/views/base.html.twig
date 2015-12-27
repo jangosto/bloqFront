@@ -39,18 +39,10 @@
         {% block header %}
         <header class="cabecera contenedor">
             <span class="contenido clear">
-            <span class="logo"><a href="/"><img src="{{ statics_domain }}/img/logo-blanco.png" alt="latidoalatido.com"><em>latidoalatido<small>.com</small></em></a></span>
+            <span class="logo"><a href="{{ url("front_home") }}"><img src="{{ statics_domain }}/img/logo-blanco.png" alt="latidoalatido.com"><em>latidoalatido<small>.com</small></em></a></span>
             <span class="boton-navegacion"><span class="icon icon-menu"></span></span>
                 {% block nav %}
-                <nav class="navegacion">
-                    <a href="" class="portada">Portada</a><a href="" class="jugadores">Jugadores</a>
-                    <a href="" class="futbol activo"><h1>Fútbol</h1></a>
-                    <a href="" class="tecnicos">Técnicos</a>
-                    <a href="" class="wags">WAGS</a>
-                    <a href="" class="competiciones">Competiciones</a>
-                    <a href="" class="directiva">Directiva</a>
-                    <a href="" class="historia">Historia</a>
-                </nav>
+                {{ render(controller('BloqModulesBundle:EditorialContent:navigationMenu')) }}
                 {% endblock %}
             </span>
         </header>
@@ -58,15 +50,9 @@
         {% block content %}{% endblock %}
         {% block footer %}
         <footer class="pie contenedor clear">
-            <nav class="col-12 pad enlaces">
-                <a href="">Portada</a>
-                <a href="">Jugadores</a>
-                <a href="">Técnicos</a>
-                <a href="">WAGS</a>
-                <a href="">Competiciones</a>
-                <a href="">Directiva</a>
-                <a href="">Historia</a>
-            </nav>
+            {% block footerNav %}
+                {{ render(controller('BloqModulesBundle:EditorialContent:footerNavigationMenu')) }}
+            {% endblock %}
             <p class="col-12 pad">Todos los derechos reservados<strong>© latidoalatido.com</strong> es una marca de fanatic.futbol</p>
         </footer>
         {% endblock %}

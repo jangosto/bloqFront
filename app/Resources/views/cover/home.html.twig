@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block zone_A3 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionFullPhotoListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
 {% set nexted = counters.outstandingSections.next() %}
 {% endblock %}
 
@@ -18,6 +18,6 @@
 {% endblock %}
 
 {% block zone_A5 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionFullPhotoListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
 {% set nexted = counters.outstandingSections.next() %}
 {% endblock %}
