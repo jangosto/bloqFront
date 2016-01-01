@@ -40,7 +40,7 @@
         </ul>
         {% if primaryImage is defined and primaryImage != null and primaryImage.path | length > 0 %}
         <figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
-            <img src="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" alt="{{ primaryImage.alt }}" itemprop="url">
+            <img src="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" alt="{{ primaryImage.description }}" itemprop="url">
             {% if (primaryImage.title != null and primaryImage.title | length > 0) or (primaryImage.author != null and primaryImage.author | length > 0) %}
             <figcaption itemprop="name">{% if primaryImage.title != null and primaryImage.title | length > 0 %}{{ primaryImage.title }} {% endif %}{% if primaryImage.author != null and primaryImage.author | length > 0 %}<span class="firma">- Foto: <span itemprop="author">{{ primaryImage.author }}</span></span>{% endif %}</figcaption>
             {% endif %}
