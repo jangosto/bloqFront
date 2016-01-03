@@ -1,3 +1,5 @@
+{% import "macros/advertising_macros.html.twig" as advertisingMacros %}
+
 {% spaceless %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ES" prefix="og: http://ogp.me/ns#">
@@ -22,55 +24,7 @@
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLBKQD');
         </script>
         {% block megabanner %}
-        <div class="megabanner">
-            <script type="text/javascript" language="JavaScript">
-            //sitenameDFP
-            var agm_site="GRADAFAN.ES";
-
-            //zonenameDFP
-            var agm_zona="resto";
-
-            // <![CDATA[
-            //Mobile
-            if (screen.width<728) {
-                var agm_sz="320x50,320x100";
-                var agm_resolw=window.screen.availWidth;
-                var agm_resolh=window.screen.availHeight;
-                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
-                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
-                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
-                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+'_MOBILE;resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
-            } else if (screen.width<979 && screen.width>=728) {
-                //Tablet
-                var agm_sz="728x90";
-                var agm_resolw=window.screen.availWidth;
-                var agm_resolh=window.screen.availHeight;
-                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
-                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
-                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
-                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+'_TABLET;resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
-            } else if (screen.width>980 && screen.width<=1024) {
-                //Tablet Lanscape
-                var agm_sz="728x90";
-                var agm_resolw=window.screen.availWidth;
-                var agm_resolh=window.screen.availHeight;
-                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
-                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
-                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
-                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+'_TABLET;resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
-            } else {
-                //Desktop
-                var agm_sz="980x200,980x90,728x90";
-                var agm_resolw=window.screen.availWidth;
-                var agm_resolh=window.screen.availHeight;
-                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
-                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
-                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
-                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+';resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
-            }
-            // ]]>
-            </script>
-        </div>
+            {{ advertisingMacros.megabanner('resto') }}
         {% endblock %}
         {#<div class="oreja izq"><a href="" class="creatividad"><img src="img/oreja-izq.jpg" alt=""></a></div>
         <div class="oreja der"><a href="" class="creatividad"><img src="img/oreja-der.jpg" alt=""></a></div>#}
