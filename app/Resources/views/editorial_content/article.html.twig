@@ -28,14 +28,7 @@
                 <span class="boton-comentarios">24<span class="punta"><img src="img/punta-comentarios.png" alt=""></span></span>
             </li>
             <li class="bloque">
-                <ul>
-                    <li class="compartir">Compartir</li>
-                    <li class="boton cuadrado fb"><span class="icono icon icon-facebook"></span></li>
-                    <li class="boton cuadrado tw"><span class="icono icon icon-twitter"></span></li>
-                    <li class="boton cuadrado gplus"><span class="icono icon icon-google-plus"></span></li>
-                    <li class="boton cuadrado pinterest"><span class="icono icon icon-pinterest"></span></li>
-                    <li class="boton cuadrado instagram"><span class="icono icon icon-instagram"></span></li>
-                </ul>
+                {{ socialMediaMacros.editorialContentSocialSharingButtons(content.id, app.request.getSchemeAndHttpHost()~app.request.getBaseURL()~content.urls.0.url, content.title) }}
             </li>
         </ul>
         {% if primaryImage is defined and primaryImage != null and primaryImage.path | length > 0 %}

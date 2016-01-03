@@ -1,0 +1,23 @@
+{% macro editorialContentSocialSharingButtons(contentId, url, title) %}
+<ul>
+    <li class="compartir">Compartir</li>
+    <li id="facebook-share_{{ contentId }}" class="boton cuadrado fb"><span class="icono icon icon-facebook"></span></li>
+    <li id="twitter-share_{{ contentId }}" class="boton cuadrado tw"><span class="icono icon icon-twitter"></span></li>
+    <li id="google-plus-share_{{ contentId }}" class="boton cuadrado gplus"><span class="icono icon icon-google-plus"></span></li>
+    {#<li id="pinterest-share_{{ contentId }}" class="boton cuadrado pinterest"><span class="icono icon icon-pinterest"></span></li>
+    <li id="instagram-share_{{ contentId }}" class="boton cuadrado instagram"><span class="icono icon icon-instagram"></span></li>#}
+</ul>
+<script>
+    jQuery(document).ready(function(){
+        jQuery("#twitter-share_{{ contentId }}").click(function(){
+            createPopup('http://twitter.com/intent/tweet?status={{ title | truncate(100, true) | url_encode }}+{{ url | url_encode }}', 600, 300);
+        });
+        jQuery("#facebook-share_{{ contentId }}").click(function(){
+            createPopup('http://www.facebook.com/sharer/sharer.php?u={{ url | url_encode }}&title={{ title | truncate(100, true) | url_encode }}', 600, 300);
+        });
+        jQuery("#google-plus-share_{{ contentId }}").click(function(){
+            createPopup('https://plus.google.com/share?url={{ url | url_encode }}', 600, 300);
+        });
+    });
+</script>
+{% endmacro %}
