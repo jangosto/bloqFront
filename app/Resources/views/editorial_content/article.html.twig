@@ -76,12 +76,51 @@ Native Flashradio V3
         </div>
         {{ render(controller('BloqModulesBundle:EditorialContent:canInterestYou', {'title': 'Te puede interesar', 'limit': 4, 'content': content, 'excludedContents': counters.usedContents })) }}
         <div class="robapaginas">
-            <span id="primer_roba_lateral" class="ayuda is_stuck" style="height: 250px; position: absolute; top: auto; width: 300px; bottom: 0px;">
-                <span class="creatividad">
-                    <img src="img/robapaginas.jpg">
-                </span>
-            </span>
-            <div style="position: static; width: 300px; height: 250px; display: block; vertical-align: baseline; float: none;"></div>
+            <script type="text/javascript" language="JavaScript">
+            //sitenameDFP
+            var agm_site="GRADAFAN.ES";
+            //zonenameDFP
+            var agm_zona="resto";
+            // <![CDATA[
+            //Mobile
+            if(screen.width<728) {
+                var agm_sz="300x600,300x250";
+                var agm_resolw=window.screen.availWidth;
+                var agm_resolh=window.screen.availHeight;
+                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
+                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
+                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
+                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+'_MOBILE;resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
+            } else if (screen.width<979 && screen.width>=728) {
+                //Tablet
+                var agm_sz="300x600,300x250";
+                var agm_resolw=window.screen.availWidth;
+                var agm_resolh=window.screen.availHeight;
+                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
+                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
+                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
+                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+'_TABLET;resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
+            } else if (screen.width>980 && screen.width<=1024) {
+                //Tablet Lanscape
+                var agm_sz="300x600,300x250";
+                var agm_resolw=window.screen.availWidth;
+                var agm_resolh=window.screen.availHeight;
+                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
+                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
+                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
+                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+'_TABLET;resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
+            } else {
+                //Desktop
+                var agm_sz="300x600,300x250";
+                var agm_resolw=window.screen.availWidth;
+                var agm_resolh=window.screen.availHeight;
+                agm_timestamp = window.agm_timestamp || Math.floor(Math.random()*1E16);
+                if (typeof(agm_interstitial)=="undefined") {var agm_interstitial="dcopt=ist;"}else{var agm_interstitial=""}
+                if (typeof(agm_tilecat)=="undefined") {var agm_tilecat=1}else{agm_tilecat++}
+                document.write('<scr'+'ipt language="javascript" type="text/javascript" src="http://ad.doubleclick.net/N5555/adj/'+agm_site+'/'+agm_zona+';resw='+agm_resolw+';resh='+agm_resolh+';'+agm_interstitial+'tile='+agm_tilecat+';sz='+agm_sz+';ord='+agm_timestamp+'?"><\/scr'+'ipt>');
+            }
+            // ]]>
+            </script>
         </div>
         <aside class="en-redes">
             <h1>En redes</h1>
