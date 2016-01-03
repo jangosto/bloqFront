@@ -60,7 +60,7 @@ Native Flashradio V3
 
 
             {% if content.text | length > 0 %}
-            {{ content | formatedTextContent() | raw }}
+            {{ content | formatedTextContent(advertisingMacros.roba('resto')) | raw }}
             {% endif %}
             <aside class="guardado-en">
                 <h1>Guardado en</h1>
@@ -75,7 +75,9 @@ Native Flashradio V3
             </aside>
         </div>
         {{ render(controller('BloqModulesBundle:EditorialContent:canInterestYou', {'title': 'Te puede interesar', 'limit': 4, 'content': content, 'excludedContents': counters.usedContents })) }}
+        <div class="robapaginas">
         {{ advertisingMacros.roba('resto') }}
+        </div>
         <aside class="en-redes">
             <h1>En redes</h1>
         </aside>
