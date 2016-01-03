@@ -14,7 +14,7 @@ class AppTextContentExtension extends \Twig_Extension
         );
     }
 
-    public function formatContentText($content)
+    public function formatContentText($content, $advertising = null)
     {
         $elements = array();
         $html = "";
@@ -23,8 +23,8 @@ class AppTextContentExtension extends \Twig_Extension
         $elementsCounter = 0;
 
         foreach ($textArray as $key => $paragraph) {
-            if ($key == self::advertising_text_position) {
-                $html .= '<div class="robapaginas en-texto"><span class="creatividad"><img src="img/robapaginas.jpg"></span></div>';
+            if ($key == self::advertising_text_position && $advertising != null && $advertising->count() > 0) {
+                $html .= '<div class="robapaginas en-texto">'.$advertising->__toString().'</div>';
             }
 
             if ($interval !== null && isset($elements[$elementsCounter]) && ((($key)%$interval == 0 && $key != 0) || $key == self::first_elements_text_position)) {
