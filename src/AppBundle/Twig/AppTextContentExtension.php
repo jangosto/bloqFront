@@ -28,18 +28,22 @@ class AppTextContentExtension extends \Twig_Extension
             }
 
             if ($interval !== null && isset($elements[$elementsCounter]) && ((($key)%$interval == 0 && $key != 0) || $key == self::first_elements_text_position)) {
-                $html .= '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($elements[$elementsCounter]->getImageWebPath(), 'article_intext').'" alt="'.$elements[$elementsCounter]->getAlt().'" itemprop="url">';
-                if (($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) || ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0)) {
-                    $html .= '<figcaption itemprop="name">';
-                    if ($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) {
-                        $html .= $elements[$elementsCounter]->getTitle().' ';
+                if ($elements[$elementsCounter]->getType() == "video") {
+                    $html .= $elements[$elementsCounter]->getVideoHtml();
+                } else {
+                    $html .= '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($elements[$elementsCounter]->getImageWebPath(), 'article_intext').'" alt="'.$elements[$elementsCounter]->getAlt().'" itemprop="url">';
+                    if (($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) || ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0)) {
+                        $html .= '<figcaption itemprop="name">';
+                        if ($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) {
+                            $html .= $elements[$elementsCounter]->getTitle().' ';
+                        }
+                        if ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0) {
+                            $html .= '<span class="firma">- Foto: <span itemprop="author">'.$elements[$elementsCounter]->getAuthor().'</span></span>';
+                        }
+                        $html .= '</figcaption>';
                     }
-                    if ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0) {
-                        $html .= '<span class="firma">- Foto: <span itemprop="author">'.$elements[$elementsCounter]->getAuthor().'</span></span>';
-                    }
-                    $html .= '</figcaption>';
+                    $html .= '</figure>';
                 }
-                $html .= '</figure>';
 
                 $elementsCounter++;
             }
@@ -52,7 +56,7 @@ class AppTextContentExtension extends \Twig_Extension
                 $html .= '</ul>';
             }
 
-            $html .= "<p>".$paragraph."</p>";
+            $html .= $paragraph."</p>";
         }
 
         return $html;
@@ -60,9 +64,10 @@ class AppTextContentExtension extends \Twig_Extension
 
     private function crumbleText($text)
     {
-        $stringArray = explode("</p>\r\n<p>", $text);
-        $stringArray[0] = preg_replace("/<p>/", "", $stringArray[0], 1);
-        $stringArray[count($stringArray)-1] = $this->str_replace_last("</p>", "" , $stringArray[count($stringArray)-1]);
+        $stringArray = explode("</p>", $text);
+        if (end($stringArray) == "") {
+            array_pop($stringArray);
+        }
 
         return $stringArray;
     }
@@ -70,14 +75,18 @@ class AppTextContentExtension extends \Twig_Extension
     private function getIntervalForElements($textArray, $content, &$elements)
     {
         $totalElements = 0;
-
+        
         foreach ($content->getMultimedias() as $multimedia) {
             if ($multimedia->getPosition() != 'primary') {
-                $elements[] = $multimedia;
+                if ($multimedia->getType() == "video" || $multimedia->getType() == "audio") {
+                    array_unshift($elements, $multimedia);
+                } else {
+                    $elements[] = $multimedia;
+                }
                 $totalElements++;
             }
         }
-
+        
         if ($totalElements > 0) {
             $interval = (int) floor(count($textArray)/$totalElements);
         } else {
