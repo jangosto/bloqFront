@@ -34,7 +34,13 @@
         {% endblock %}
         {% block preHeader %}
         <div class="precabecera contenedor clear">
-            <a href="" class="titulo"><strong>fanatic</strong>.futbol</a>
+            <a id="reproducir-radio" class="radio" href="{{ url('front_radio_player') }}"><span class="icon icon-volume-up"></span> Emisión en <strong>directo</strong></a>
+            <ul class="redes">
+                <li>Síguenos en</li>
+                <li><a href="" class="boton cuadrado blanco"><span class="icono icon icon-facebook"></span></a></li>
+                <li><a href="" class="boton cuadrado blanco"><span class="icono icon icon-twitter"></span></a></li>
+                <li><a href="" class="boton cuadrado blanco"><span class="icono icon icon-google-plus"></span></a></li>
+            </ul>
             <ul class="acceso">
                 <li><a href="{{ path('fos_user_registration_register') }}" class="boton cuadrado blanco"><span class="icono icon icon-account-add"></span><span class="accion">Regístrate</span></a></li>
                 <li><a href="{{ path('fos_user_security_login') }}" class="boton cuadrado blanco"><span class="icono icon icon-account-box"></span><span class="accion">Inicia sesión</span></a></li>
@@ -64,6 +70,14 @@
         {% block bodyJs %}
         <script src="{{ statics_domain }}/js/cocktail.js"></script>
         <script src="{{ statics_domain }}/js/scripts.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#reproducir-radio').click(function(){
+                    createPopup('{{ url('front_radio_player') }}', 450, 75);
+                    return false;
+                });
+            });
+        </script>
         {% endblock %}
     </body>
 </html>

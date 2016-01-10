@@ -1,0 +1,23 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ES" prefix="og: http://ogp.me/ns#">
+    <head>
+        <!--[if lt IE 9]>
+            <script src="{{ statics_domain }}/js/html5.js"></script>
+        <![endif]-->
+        <script src="{{ statics_domain }}/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="{{ statics_domain }}/js/nativeflashradiov3.js"></script>
+    </head>
+    <body>
+        <!-- PLAYER RADIO -->
+        <div id="flashradio" style="height:50px; width:400px;">
+            Native Flashradio V3
+        </div>
+        <a href="http://native.flashradio.info">READ MORE</a>
+        <script type="text/javascript">
+            $("#flashradio").flashradio({settings: "{{ statics_domain }}/lib/flashradio.xml"});
+        </script>
+        <!-- END PLAYER RADIO -->
+    </body>
+</html>
+{% endspaceless %}
