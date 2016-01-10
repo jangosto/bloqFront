@@ -35,23 +35,14 @@
         <figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
             <img src="{{ multimedia_domain ~ relative_images_url ~ primaryImage.path | optimized('article_primary') }}" alt="{{ primaryImage.description }}" itemprop="url">
             {% if (primaryImage.title != null and primaryImage.title | length > 0) or (primaryImage.author != null and primaryImage.author | length > 0) %}
-            <figcaption itemprop="name">{% if primaryImage.title != null and primaryImage.title | length > 0 %}{{ primaryImage.title }} {% endif %}{% if primaryImage.author != null and primaryImage.author | length > 0 %}<span class="firma">- Foto: <span itemprop="author">{{ primaryImage.author }}</span></span>{% endif %}</figcaption>
+            <figcaption itemprop="name">{% if primaryImage.title != null and primaryImage.title | length > 0 %}<strong>{{ primaryImage.title }}</strong> {% endif %}{% if primaryImage.description is defined and primaryImage.description|length > 0 %}{{ primaryImage.description }} {% endif %}{% if primaryImage.author != null and primaryImage.author | length > 0 %}<span class="firma">{{ primaryImage.author }}</span>{% endif %}</figcaption>
             {% endif %}
         </figure>
         {% endif %}
         <div class="cuerpo-articulo" itemprop="articleBody">
-
-{#<!-- PLAYER RADIO -->
-<div id="flashradio" style="height:50px; width:400px;">
-Native Flashradio V3
-</div>
-<a href="http://native.flashradio.info">READ MORE</a>
-<script type="text/javascript">
-    $("#flashradio").flashradio({settings: "{{ statics_domain }}/lib/flashradio.xml"});
-</script>
-<!-- END PLAYER RADIO -->#}
-
-
+            {% if content.intro is defined and content.intro|length > 0 %}
+            <p class="entradilla-articulo">{{ content.intro }}</p>
+            {% endif %}
             {% if content.text | length > 0 %}
             {{ content | formatedTextContent(advertisingMacros.roba('resto')) | raw }}
             {% endif %}
