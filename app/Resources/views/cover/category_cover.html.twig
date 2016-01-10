@@ -1,5 +1,17 @@
 {% extends "cover/layout.html.twig" %}
 
+{% block analyticsDataLayer %}
+<script>
+    dataLayer = [{
+        'Site': '{{ site_name }}',
+        'Sección': '{{ section | analyticsSectionString }}',
+        'Etiqueta': ''
+        'Tipo': 'Portadilla',
+        'Autor':''
+    }];
+</script>
+{% endblock %}
+
 {% block bodyAttributes %}class="sub-portada" id="{{ section.slug }}"{% endblock %}
 
 {% block title %}<h1 class="titulo-seccion">{{ section.name }}</h1>{% endblock %}

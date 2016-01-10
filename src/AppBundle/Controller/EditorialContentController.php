@@ -53,6 +53,9 @@ class EditorialContentController extends Controller
         $editorialContentManager = $this->container->get('editor.'.$url->getContentType().'.manager');
         $editorialContent = $editorialContentManager->getById($url->getContentId(), true);
 
+        $editorialContentsConfig = $this->container->getParameter("editorial_contents");
+        $contentType = $editorialContentsConfig[$editorialContent->getType()]['analytics_type_name'];
+
         if ($editorialContent->getStatus() !== "published") {
             throw $this->createNotFoundException('Content Not Found');
         }
@@ -81,7 +84,8 @@ class EditorialContentController extends Controller
             'user' => $this->getUser(),
             'authors' => $authors,
             'content' => $editorialContent,
-            'counters' => $counters
+            'counters' => $counters,
+            'contentType' => $contentType
         ));
     }
 
@@ -128,9 +132,11 @@ class EditorialContentController extends Controller
                 throw $this->createNotFoundException('Content Not Found');
             } else {
                 $templatePrefix = "tag_";
+                $contentType = "Etiqueta";
             }
         } else {
             $templatePrefix = "category_";
+            $contentType = "Portadilla";
         }
 
         $counters = new \Bloq\Common\ModulesBundle\Monitors\Counters($outstandingCategories);
@@ -138,7 +144,8 @@ class EditorialContentController extends Controller
         return $this->render('cover/'.$templatePrefix.'cover.html.twig', array(
             'user' => $this->getUser(),
             'counters' => $counters,
-            'section' => $section
+            'section' => $section,
+            'contentType' => $contentType
         ));
     }
 }

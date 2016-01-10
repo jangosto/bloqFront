@@ -10,6 +10,7 @@ parameters:
     locale: es
     editorial_contents: &editorial_contents_config
         article:
+            analytics_type_name: Noticia
             pretty_name: Artículo
             menu_class: articulos
             image_filters_enabled: ['article_primary', 'article_intext']
@@ -48,6 +49,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
+        site_name: %site.name%
         statics_domain: %statics.server.domain%
         editorial_contents: *editorial_contents_config
         relative_images_path: %bloq_multimedia.images.root_dir_rel_path%
