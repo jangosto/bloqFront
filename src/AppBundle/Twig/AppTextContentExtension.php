@@ -35,10 +35,10 @@ class AppTextContentExtension extends \Twig_Extension
                     if (($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) || ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0)) {
                         $html .= '<figcaption itemprop="name">';
                         if ($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) {
-                            $html .= '<strong>'.$elements[$elementsCounter]->getTitle().'</strong> ';
+                            $html .= '<strong>'.$elements[$elementsCounter]->getTitle().'</strong>&nbsp;';
                         }
                         if ($elements[$elementsCounter]->getDescription() != null && strlen($elements[$elementsCounter]->getDescription()) > 0) {
-                            $html .= $elements[$elementsCounter]->getDescription().' ';
+                            $html .= $elements[$elementsCounter]->getDescription().'&nbsp;';
                         }
                         if ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0) {
                             $html .= '<span class="firma">'.$elements[$elementsCounter]->getAuthor().'</span>';
