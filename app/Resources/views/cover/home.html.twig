@@ -1,5 +1,17 @@
 {% extends "cover/layout.html.twig" %}
 
+{% block analyticsDataLayer %}
+<script>
+    dataLayer = [{
+        'Site': '{{ site_name }}',
+        'Sección': '',
+        'Etiqueta': '',
+        'Tipo': 'Portada',
+        'Autor':''
+    }];
+</script>
+{% endblock %}
+
 {% block megabanner %}
     <div class="megabanner">
     {{ advertisingMacros.megabanner('home') }}

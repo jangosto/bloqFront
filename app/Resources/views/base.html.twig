@@ -18,6 +18,17 @@
     </head>
     <body {% block bodyAttributes %}{% endblock %}>
         {% block preBodyElements %}
+        {% block analyticsDataLayer %}
+        <script>
+            dataLayer = [{
+                'Site': '{{ site_name }}',
+                'Sección': '{{ content.section | analyticsSectionString }}',
+                'Etiqueta': '',
+                'Tipo': '{{ contentType }}',
+                'Autor':'{{ authors.0.id }}'
+            }];
+        </script>
+        {% endblock %}
         <noscript>
             <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLBKQD" height="0" width="0" style="display:none;visibility:hidden"></iframe>
         </noscript>
