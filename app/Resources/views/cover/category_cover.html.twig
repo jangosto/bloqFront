@@ -25,8 +25,7 @@
 {% endblock %}
 
 {% block zone_A3 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionFullPhotoListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
-{% set nexted = counters.outstandingSections.next() %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentsLimit: 2 })) }}
 {% endblock %}
 
 {% block zone_B_class %}bloque-en-portada{% endblock %}

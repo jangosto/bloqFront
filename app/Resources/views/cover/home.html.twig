@@ -34,9 +34,9 @@
 {{ render(controller('BloqModulesBundle:EditorialContent:outstandingsCarousel', { 'limit': 3, 'excludedContents': counters.usedContents })) }}
 {% endblock %}
 
-{#% block zone_A2 %}
+{% block zone_A2 %}
 {{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
-{% endblock %#}
+{% endblock %}
 
 {% block zone_A3 %}
 {{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentsLimit: 2 })) }}
