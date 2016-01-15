@@ -34,19 +34,12 @@
 {{ render(controller('BloqModulesBundle:EditorialContent:outstandingsCarousel', { 'limit': 3, 'excludedContents': counters.usedContents })) }}
 {% endblock %}
 
-{% block zone_A2 %}
+{#% block zone_A2 %}
 {{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
-{% endblock %}
+{% endblock %#}
 
 {% block zone_A3 %}
-{% set sectionIds = [] %}
-{% for x in 1..2 %}
-    {% if counters.outstandingSections.current().id is defined %}
-        {% set sectionIds = sectionIds|merge([counters.outstandingSections.current().id]) %}
-        {% set nexted = counters.outstandingSections.next() %}
-    {% endif %}
-{% endfor %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', {'sectionIds': sectionIds, 'limitBySection': 1, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentsLimit: 2 })) }}
 {% endblock %}
 
 {% block zone_A4 %}
@@ -54,14 +47,7 @@
 {% endblock %}
 
 {% block zone_A5 %}
-{% set sectionIds = [] %}
-{% for x in 1..2 %}
-    {% if counters.outstandingSections.current().id is defined %}
-        {% set sectionIds = sectionIds|merge([counters.outstandingSections.current().id]) %}
-        {% set nexted = counters.outstandingSections.next() %}
-    {% endif %}
-{% endfor %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', {'sectionIds': sectionIds, 'limitBySection': 1, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentssLimit: 2 })) }}
 
 {#{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionFullPhotoListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
 {% set nexted = counters.outstandingSections.next() %}#}
