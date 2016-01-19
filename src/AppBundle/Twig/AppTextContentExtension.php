@@ -20,10 +20,13 @@ class AppTextContentExtension extends \Twig_Extension
         $html = "";
         $textArray = $this->crumbleText($content->getText());
         $elementsCounter = 0;
+        $alreadyElementDrawn = false;
+        $alreadySummariesDrawn = false;
 
         foreach ($textArray as $key => $paragraph) {
             if ($key == self::advertising_text_position && $advertising != null && $advertising->count() > 0) {
                 $html .= '<div class="robapaginas en-texto">'.$advertising->__toString().'</div>';
+                $alreadyElementDrawn = true;
             }
 
             foreach ($content->getMultimedias() as $multimedia) {
@@ -47,18 +50,22 @@ class AppTextContentExtension extends \Twig_Extension
                         }
                         $html .= '</figure>';
                     }
+                    $alreadyElementDrawn = true;
                 }
             }
 
-            if ($key == self::summaries_text_position && isset($content->getSummaries()[0]) && strlen($content->getSummaries()[0]) > 0) {
+            if ($key >= self::summaries_text_position && $content->getSummaries()->count() > 0 && $alreadyElementDrawn === false && $alreadySummariesDrawn === false) {
                 $html .= '<ul class="sumarios">';
                 foreach ($content->getSummaries() as $summary) {
-                    $html .= '<li>'.$summary.'</li>';
+                    $html .= '<li>'.$summary->getText().'</li>';
                 }
                 $html .= '</ul>';
+                $alreadySummariesDrawn = true;
             }
 
             $html .= $paragraph."</p>";
+
+            $alreadyElementDrawn = false;
         }
 
         return $html;
