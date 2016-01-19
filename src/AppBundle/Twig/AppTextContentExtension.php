@@ -19,7 +19,6 @@ class AppTextContentExtension extends \Twig_Extension
         $elements = array();
         $html = "";
         $textArray = $this->crumbleText($content->getText());
-        $interval = $this->getIntervalForElements($textArray, $content, $elements);
         $elementsCounter = 0;
 
         foreach ($textArray as $key => $paragraph) {
@@ -27,28 +26,28 @@ class AppTextContentExtension extends \Twig_Extension
                 $html .= '<div class="robapaginas en-texto">'.$advertising->__toString().'</div>';
             }
 
-            if ($interval !== null && isset($elements[$elementsCounter]) && ((($key)%$interval == 0 && $key != 0) || $key == self::first_elements_text_position)) {
-                if ($elements[$elementsCounter]->getType() == "video") {
-                    $html .= $elements[$elementsCounter]->getVideoHtml();
-                } else {
-                    $html .= '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($elements[$elementsCounter]->getImageWebPath(), 'article_intext').'" alt="'.$elements[$elementsCounter]->getAlt().'" itemprop="url">';
-                    if (($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) || ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0)) {
-                        $html .= '<figcaption itemprop="name">';
-                        if ($elements[$elementsCounter]->getTitle() != null && strlen($elements[$elementsCounter]->getTitle()) > 0) {
-                            $html .= '<strong>'.$elements[$elementsCounter]->getTitle().'</strong>&nbsp;';
+            foreach ($content->getMultimedias() as $multimedia) {
+                if ($multimedia->getPosition() != null && $multimedia->getPosition() == $key && $multimedia->getPosition() > 0) {
+                    if ($multimedia->getType() == "video") {
+                        $html .= $multimedia->getVideoHtml();
+                    } else {
+                        $html .= '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($multimedia->getImageWebPath(), 'article_intext').'" alt="'.$multimedia->getAlt().'" itemprop="url">';
+                        if (($multimedia->getTitle() != null && strlen($multimedia->getTitle()) > 0) || ($multimedia->getAuthor() != null && strlen($multimedia->getAuthor()) > 0)) {
+                            $html .= '<figcaption itemprop="name">';
+                            if ($multimedia->getTitle() != null && strlen($multimedia->getTitle()) > 0) {
+                                $html .= '<strong>'.$multimedia->getTitle().'</strong>&nbsp;';
+                            }
+                            if ($multimedia->getDescription() != null && strlen($multimedia->getDescription()) > 0) {
+                                $html .= $multimedia->getDescription().'&nbsp;';
+                            }
+                            if ($multimedia->getAuthor() != null && strlen($multimedia->getAuthor()) > 0) {
+                                $html .= '<span class="firma">'.$multimedia->getAuthor().'</span>';
+                            }
+                            $html .= '</figcaption>';
                         }
-                        if ($elements[$elementsCounter]->getDescription() != null && strlen($elements[$elementsCounter]->getDescription()) > 0) {
-                            $html .= $elements[$elementsCounter]->getDescription().'&nbsp;';
-                        }
-                        if ($elements[$elementsCounter]->getAuthor() != null && strlen($elements[$elementsCounter]->getAuthor()) > 0) {
-                            $html .= '<span class="firma">'.$elements[$elementsCounter]->getAuthor().'</span>';
-                        }
-                        $html .= '</figcaption>';
+                        $html .= '</figure>';
                     }
-                    $html .= '</figure>';
                 }
-
-                $elementsCounter++;
             }
 
             if ($key == self::summaries_text_position && isset($content->getSummaries()[0]) && strlen($content->getSummaries()[0]) > 0) {
