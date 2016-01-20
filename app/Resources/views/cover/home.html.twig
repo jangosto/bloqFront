@@ -56,7 +56,20 @@
 
 {% block zone_A5 %}
 {{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentssLimit: 2 })) }}
+{% endblock %}
 
-{#{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionFullPhotoListTwoCol', {'sectionId': counters.outstandingSections.current().id, 'limit': 2, 'excludedContents': counters.usedContents })) }}
-{% set nexted = counters.outstandingSections.next() %}#}
+{% block zone_A6 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{% endblock %}
+
+{% block zone_A7 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentsLimit: 2 })) }}
+{% endblock %}
+
+{% block zone_A8 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{% endblock %}
+
+{% block zone_A9 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentssLimit: 2 })) }}
 {% endblock %}
