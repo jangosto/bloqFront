@@ -43,33 +43,39 @@
 {% endblock %}
 
 {% block zone_A2 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A3 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentsLimit: 2 })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, 'contentsLimit': 2, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A4 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A5 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentssLimit: 2 })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, 'contentssLimit': 2, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A6 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A7 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentsLimit: 2 })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, 'contentsLimit': 2, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A8 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedListTwoCol', { 'limit': 6, 'excludedContents': counters.usedContents, 'notOfficials': true })) }}
 {% endblock %}
 
 {% block zone_A9 %}
-{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, contentssLimit: 2 })) }}
+{{ render(controller('BloqModulesBundle:EditorialContent:lastPublishedBySectionsFullPhotoListTwoCol', { 'counters': counters, 'limitBySection': 1, 'contentssLimit': 2, 'notOfficials': true })) }}
+{% endblock %}
+
+{% block zone_B_class %}bloque-en-portada{% endblock %}
+
+{% block zone_B1 %}
+{{ render(controller('BloqModulesBundle:EditorialContent:officialContentsZoneBListOneCol', {'title': 'Noticias Oficiales', 'limit': 10, 'excludedContents': counters.usedContents })) }}
 {% endblock %}
