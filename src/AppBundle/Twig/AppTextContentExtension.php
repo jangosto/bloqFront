@@ -22,6 +22,35 @@ class AppTextContentExtension extends \Twig_Extension
         $elementsCounter = 0;
         $alreadyElementDrawn = false;
         $alreadySummariesDrawn = false;
+        $position = 0;
+
+        $multimediasHtmlArray = array();
+
+        foreach ($content->getMultimedias() as $multimedia) {
+            if ($multimedia->getPosition() != null && $multimedia->getPosition() > 0) {
+                $pos = $multimedia->getPosition() - 1;
+                if ($multimedia->getType() == "video") {
+                    $multimediasHtmlArray[$pos] = $multimedia->getVideoHtml();
+                } else {
+                    $multimediasHtmlArray[$pos] = '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($multimedia->getImageWebPath(), 'article_intext').'" alt="'.$multimedia->getAlt().'" itemprop="url">';
+                    if (($multimedia->getTitle() != null && strlen($multimedia->getTitle()) > 0) || ($multimedia->getAuthor() != null && strlen($multimedia->getAuthor()) > 0)) {
+                        $multimediasHtmlArray[$pos] .= '<figcaption itemprop="name">';
+                        if ($multimedia->getTitle() != null && strlen($multimedia->getTitle()) > 0) {
+                            $multimediasHtmlArray[$pos] .= '<strong>'.$multimedia->getTitle().'</strong>&nbsp;';
+                        }
+                        if ($multimedia->getDescription() != null && strlen($multimedia->getDescription()) > 0) {
+                            $multimediasHtmlArray[$pos] .= $multimedia->getDescription().'&nbsp;';
+                        }
+                        if ($multimedia->getAuthor() != null && strlen($multimedia->getAuthor()) > 0) {
+                            $multimediasHtmlArray[$pos] .= '<span class="firma">'.$multimedia->getAuthor().'</span>';
+                        }
+                        $multimediasHtmlArray[$pos] .= '</figcaption>';
+                    }
+                    $multimediasHtmlArray[$pos] .= '</figure>';
+                }
+                $alreadyElementDrawn = true;
+            }
+        }
 
         foreach ($textArray as $key => $paragraph) {
             if ($key == self::advertising_text_position && $advertising != null && $advertising->count() > 0) {
@@ -29,29 +58,9 @@ class AppTextContentExtension extends \Twig_Extension
                 $alreadyElementDrawn = true;
             }
 
-            foreach ($content->getMultimedias() as $multimedia) {
-                if ($multimedia->getPosition() != null && $multimedia->getPosition() == $key && $multimedia->getPosition() > 0) {
-                    if ($multimedia->getType() == "video") {
-                        $html .= $multimedia->getVideoHtml();
-                    } else {
-                        $html .= '<figure class="foto" itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="'.$this->getOptimizedImage($multimedia->getImageWebPath(), 'article_intext').'" alt="'.$multimedia->getAlt().'" itemprop="url">';
-                        if (($multimedia->getTitle() != null && strlen($multimedia->getTitle()) > 0) || ($multimedia->getAuthor() != null && strlen($multimedia->getAuthor()) > 0)) {
-                            $html .= '<figcaption itemprop="name">';
-                            if ($multimedia->getTitle() != null && strlen($multimedia->getTitle()) > 0) {
-                                $html .= '<strong>'.$multimedia->getTitle().'</strong>&nbsp;';
-                            }
-                            if ($multimedia->getDescription() != null && strlen($multimedia->getDescription()) > 0) {
-                                $html .= $multimedia->getDescription().'&nbsp;';
-                            }
-                            if ($multimedia->getAuthor() != null && strlen($multimedia->getAuthor()) > 0) {
-                                $html .= '<span class="firma">'.$multimedia->getAuthor().'</span>';
-                            }
-                            $html .= '</figcaption>';
-                        }
-                        $html .= '</figure>';
-                    }
-                    $alreadyElementDrawn = true;
-                }
+            if (isset($multimediasHtmlArray[$key])) {
+                $html .= $multimediasHtmlArray[$key];
+                unset($multimediasHtmlArray[$key]);
             }
 
             if ($key >= self::summaries_text_position && $content->getSummaries()->count() > 0 && $alreadyElementDrawn === false && $alreadySummariesDrawn === false) {
@@ -66,6 +75,11 @@ class AppTextContentExtension extends \Twig_Extension
             $html .= $paragraph."</p>";
 
             $alreadyElementDrawn = false;
+            $position = $key;
+        }
+
+        foreach ($multimediasHtmlArray as $media) {
+            $html .= $media;
         }
 
         return $html;

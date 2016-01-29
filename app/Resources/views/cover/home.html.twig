@@ -79,3 +79,7 @@
 {% block zone_B1 %}
 {{ render(controller('BloqModulesBundle:EditorialContent:officialContentsZoneBListOneCol', {'title': 'Noticias Oficiales', 'limit': 10, 'excludedContents': counters.usedContents })) }}
 {% endblock %}
+
+{% block zone_B3 %}
+<div style="width: 100%; height: 400px;" data-crowdynews-widget="Fanaticfutbol/latidoalatido-plantilla"><script src="//widget.crowdynews.com/js/widget.js" async="true"></script></div>
+{% endblock %}
