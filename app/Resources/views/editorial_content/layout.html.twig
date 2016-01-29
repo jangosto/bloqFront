@@ -9,14 +9,14 @@
 {% if content.seoTitle is defined and content.seoTitle == true %}
     {% if content.pretitle is defined and content.pretitle | length > 0 %}
         {% set title = content.pretitle ~ " - " ~ content.title %}
-        {% set htmlTitle = '<span class="seccion"><a href="">' ~ content.section.name ~ '</a></span><h1 class="titulo tam38 titular" itemprop="name headline"><span class="antetitulo"><a href="">' ~ content.pretitle ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
+        {% set htmlTitle = '<span class="seccion"><a href="' ~ content.section.url ~ '">' ~ content.section.name ~ '</a></span><h1 class="titulo tam38 titular" itemprop="name headline"><span class="antetitulo"><a href="">' ~ content.pretitle ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
     {% else %}
         {% set title = content.section.name ~ " - " ~ content.title %}
-        {% set htmlTitle = '<h1 class="titulo tam38 titular" itemprop="name headline"><span class="seccion"><a href="">' ~ content.section.name ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
+        {% set htmlTitle = '<h1 class="titulo tam38 titular" itemprop="name headline"><span class="seccion"><a href="' ~ content.section.url ~ '">' ~ content.section.name ~ '</a></span>' ~ content.title ~ '</h1>' | raw %}
     {% endif %}
 {% else %}
     {% set title = content.title %}
-    {% set htmlTitle = '<span class="seccion"><a href="">' ~ content.section.name ~ '</a></span>' %}
+    {% set htmlTitle = '<span class="seccion"><a href="' ~ content.section.url ~ '">' ~ content.section.name ~ '</a></span>' %}
     {% if content.pretitle is defined and content.pretitle | length > 0 %}
         {% set htmlTitle = htmlTitle ~ '<span class="antetitulo"><a href="">' ~ content.pretitle ~ '</a></span>' %}
     {% endif %}
