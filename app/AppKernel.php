@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Bloq\Common\EditorBundle\BloqEditorBundle(),
             new Bloq\Common\MultimediaBundle\BloqMultimediaBundle(),
             new Bloq\Common\ModulesBundle\BloqModulesBundle(),
+            new Bloq\Common\FrontBundle\BloqFrontBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

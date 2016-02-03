@@ -21,6 +21,10 @@ fos_user_change_password:
 #    path:      /users/create/
 #    defaults:  { _controller: FOSUserBundle:Registration:register }
 
+bloq_front:
+    resource: "@BloqFrontBundle/Controller/"
+    type:     annotation
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
