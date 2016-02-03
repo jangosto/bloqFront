@@ -50,7 +50,7 @@
         {% endblock %}
         {% block preHeader %}
         <div class="precabecera contenedor clear">
-            <a id="reproducir-radio" class="radio" href="{{ absolute_url('front_radio_player') }}"><span class="icon icon-volume-up"></span> Emisión en <strong>directo</strong></a>
+            <a id="reproducir-radio" class="radio" href="{{ url('front_radio_player') }}"><span class="icon icon-volume-up"></span> Emisión en <strong>directo</strong></a>
             <ul class="redes">
                 <li>Síguenos en</li>
                 <li><a href="" class="boton cuadrado blanco"><span class="icono icon icon-facebook"></span></a></li>
@@ -66,7 +66,7 @@
         {% block header %}
         <header class="cabecera contenedor">
             <span class="contenido clear">
-            <span class="logo"><a href="{{ absolute_url("front_home") }}"><img src="{{ statics_domain }}/img/logo-blanco.png" alt="latidoalatido.com"><em>latidoalatido<small>.com</small></em></a></span>
+            <span class="logo"><a href="{{ url("front_home") }}"><img src="{{ statics_domain }}/img/logo-blanco.png" alt="latidoalatido.com"><em>latidoalatido<small>.com</small></em></a></span>
             <span class="boton-navegacion"><span class="icon icon-menu"></span></span>
                 {% block nav %}
                 {{ render(controller('BloqModulesBundle:EditorialContent:navigationMenu')) }}
@@ -89,7 +89,7 @@
         <script>
             $(document).ready(function(){
                 $('#reproducir-radio').click(function(){
-                    createPopup('{{ absolute_url('front_radio_player') }}', 450, 75);
+                    createPopup('{{ url('front_radio_player') }}', 450, 75);
                     return false;
                 });
             });
