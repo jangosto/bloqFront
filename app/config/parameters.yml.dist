@@ -1,19 +1,52 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+# This file is auto-generated during the composer install
 parameters:
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
+    mailer_transport: null
+    mailer_host: null
+    mailer_user: null
+    mailer_password: null
+    secret: be7ffe89fb3e4ef3963c4022a73227eb495757a9
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
+    database_host: 127.0.0.1
+    database_port: null
 
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    creator.database_name:   agropathy_content
+    creator.database_user:     root
+    creator.database_password: regaloneo
+
+#Users Database config
+    users.database_name: bloqcms_admin
+    users.database_user: root
+    users.database_password: regaloneo
+
+#Content Database config
+    content.database_name: agropathy_content
+    content.database_user: root
+    content.database_password: regaloneo
+
+#SiteData
+    site.name: 'Agropathy'
+
+#EditorDomain
+    front.domain.path: '/home/jangosto/bloq_cms/front/web'
+
+#Statics Server
+    statics.server.domain: '/static' #'http://dev.static.fanatic.futbol'
+
+#Multimedia
+    multimedia.domain.path: %front.domain.path%
+    multimedia.domain: 'http://dev.latidoalatido.com'
+
+    multimedia.upload.dir.rel.path: '/uploads/latidoalatido'
+    multimedia.cache_dir.prefix: 'uploads/cache'
+
+    #multimedia.images.save.path: '/uploads/{site_domain}/images'
+    multimedia.images.dir.rel_url: '/images'
+
+#Site Social Accounts
+    #Twitter
+    social.twitter.account.name: 'latidoalatido'
+
+#Comments
+    #Disqus
+    comments.disqus.src_domain_prefix: 'latidoalatidotest'
+    comments.disqus.editorial_content.id_prefix: 'latidoalatido_EC'
